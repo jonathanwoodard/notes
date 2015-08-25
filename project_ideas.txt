@@ -1,0 +1,43 @@
+Use machine learning to match field recordings of birdsongs to a species
+using the Cornell library of recordings as a training set.  Incorporate
+species distribution from ebird records to inform the choices.
+
+
+Nasa data - use vegetation cover, nightime light polution as factors to distinguish
+habitat type/quality from gps
+ebird data - determine spatial and temporal distribution
+split search space by gps and timestamp info
+train on macauly library data
+
+perform recursively with subtraction to get multiple species or count information
+look into autotune for signal preprocessing!
+SVD for feature reduction, cosine similartiy to find species
+esri arcgis
+look for neuroscience algorithms to pick signals out of noisy data
+warblr.net - read more papers!!!!!
+
+Abstract:
+
+The goal of this research is to develop a machine learning model capable of
+identifying unknown avian species in the field.  The model will be informed by
+prior knowledge of spatial and temporal distribution taken from the ebird
+database, user location and timestamp information taken from the user device,
+and habitat factors inferred from satalite data.  The initial implementation
+will be limited to a few species common in the Seattle area, but the goal will
+be to expand the scope once a functional model has been established.
+
+
+Predict first occurances of migratory species from historical data and weather
+    and satalite data (temperature, veg. cover)
+
+Predict protein folding from sequence and crystal structure data
+
+Predict solution stability from delta free energy and solubility data from
+    ammonium sulfate precipitation experiments - experimental data not really available
+
+Find correlations in high throughput mass spec data
+
+Machine learning proteomic/peptide map database search
+
+Scrape web for beer ratings and recipes, predict recipes which will perform
+    well at competitions

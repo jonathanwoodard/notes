@@ -1,0 +1,16 @@
+references:
+Mathematical Statistics
+Statistical Inference
+All of Statistics
+Probability and Measure
+
+Review: Sets
+    A set S consists of all possible outcomes or events and is called the sample space
+    Union
+    Intersection
+    Complement: part of b not in a
+    Disjoint: a not in b
+    Partition:
+
+
+Combinatorix:

@@ -1,0 +1,39 @@
+sql
+relational database
+    survives after process in  which it was created has ended
+    written to non-volatile storage
+    infrequently accessed and unlikely to be changed.
+
+most business data is stored in a RBDMS
+
+Why?
+model relations in data
+query data and their relations efficiently
+maintain data consistancey and integreity
+
+schema defines the structure of the data
+    datavase composed of tables
+        columns(fields)
+        rows(records)
+    column has a data type (integer, string, date, ...)
+    row is an entry in the table with data for each field
+
+    first task: understand the schema
+
+every table needs to have a unique primary key
+always fastest to search by primary key
+
+foreign keys
+    references some other entry in the database
+    could be in same table or different
+    faster to do joins using this key
+
+shema normalization
+    minimize redundancy
+        details only stored once
+        other tables reference that data
+
+sql queries:
+    SELECT
+    FROM
+    WHERE

@@ -1,0 +1,198 @@
+OO conceptes
+TDD and debugger
+
+Effective Python
+Head First Design Patterns
+Design Patterns: Elements of Reusable Object-Oriented Software
+Large-Scale C++ Software Design
+
+facilitate development by many developers
+promote software reuse
+decouple code - impromve maintanability and stability
+avoid mistakes, such as forgetting to initialize
+
+Science and OOP:
+Science in inherently linear:
+    load data
+    compute something
+    serialize result to disk
+
+As a library consumer:
+    identify the classes with the functionality you need
+    compose objects unitl you have the object you need to provide the service
+objects provide a service to clients if they satisfy the interfaces's requirements
+
+A class:
+    defines a user-defined type
+    a full class type, like float, str, etc
+    consists of :
+        attributes
+        methods
+an object:
+    an instance of a class
+    can create multibpl instances of a class
+
+an attribute is a property of a class
+    usually a variable
+    could look like a variable, but be a method
+
+Example sci-kit learn:
+    just instantiate the model you want
+    use the same interface for every model
+    minimize cognitive load
+
+OO conceptes:
+    inheritance
+    polymorphism
+    encapsulation
+
+dont worry about templates and genrics:
+    not related to OO
+
+Inheritance:
+    child class derives from a base class:
+    base class defines genral behavior
+    child class specializes behavior
+        child gets all functionality of base
+        child methods override base methods of the same name
+
+Polymorphism:
+    OO enalbles polymorphism:
+        can treat multiple objects the same as long as they support the same interface
+        usually, objects must instantiate classes which have a common base class
+        Python uses duck-typing
+            python does not require that classes are related via inheritance
+            polymorphism works as long as the object instantiates a class which defines the necessary attribute or method
+
+            python is weakly typed: types are determined on the fly based on usage
+                classes only need to support the interface
+                inheritance makes it easier to ensure interface is supported, eg via an ABC (abstract base class)
+            at run time python checks if an object has the desired method or attribute
+                if the method is missing, Python will raise an AttributeError
+
+Encapsulation:
+    forces code to manipulate an object's internal state only through method calls:
+        always program theis way!
+            write a lbrary to manage a resource
+            only access the resource via the library
+            basic defensive programming
+        python will not enforce encapsulation
+            malicious code can directly access an objects data
+            violating encapsulation mekes code impossible to maintain
+            'we are all consenting adults'
+
+    public / protected / private
+        public: accesible by any external code
+        protected: access depends on the language
+        private: only accesible by same class, not derived classes
+
+noun - implement as a class
+verb - implement as a method
+
+composition/aggregation
+
+injeritance
+
+interface is a contract between the client and the service provider
+    isolates client from details of implementation
+    client must satisfy preconditions to call method/function
+    respect boundary of interface
+
+Testing an interface
+    use unit test or spec test
+        verify interface is good before implementation
+        exercise functions before application is complete
+    stub out methods using pass
+    test driven development
+        red/green/green
+        write unit tests
+        verify they pass
+        improve
+
+Separation of concerns
+    try to keep 'concerns' separate:
+        use different layers for each concern
+
+
+
+Core OOP
+
+define classes to embody concepts
+    use class keyword
+    inherit from object
+    capitalize name
+    include meaningful docstring
+
+uses self to refer to an instances own unique data
+
+inherit from a base class
+    specify base class instead of object
+    can call parent's methods
+    but, can override methods from parent to specialize
+    can check type via isinstance()
+
+def __init__(self, ...):
+
+use super to call base class's init
+call super first, before initialization of specialized methods
+
+@classmethod
+@staticmethod
+magic methods
+add support for magic methods to class
+    make class iterable
+    make class callable
+    make class behave like a container
+
+SEE LINK
+
+decorators
+
+a decorator is a function which wraps another function
+    decorator code runs before and after decorated function
+    see Effective Python
+
+    some common decorators:
+        @property often with @<NameOfYourProperty>.setter
+        @classmethod - can access class spescific data
+        @staticmethod - group functions under class namespace
+        @abstactmethod - define a method in ABC
+
+//////////////////////////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+Verification, unit tests, and debugging
+    verification
+    validation
+    uncertainty quantification
+
+    verify your code is correct, and finding and fixing bugs are critical skills:
+        just because code runs doesn't mean it's correct
+        write unit tests
+            ensures interfaces satisfy their contracts
+            exercise key paths through code
+            identify any bugs introduced by future changes which break code
+            test code before implementing
+        when unit tests fail, use a debugger
+        monte carlo simulation
+
+
+    use a test framework (nose)
+    unit test should exercise key cases
+    setup fixtures needed for testing
+    Test Driven Development
+        Red: implement test and check it fails
+        Green:implement code and make sure it passees
+        Green: improve code
+
+    when unit test fails: use debugger
+    for complex bugs, debug via PDB
+        import pdb
+        ...
+        pdb.set_trace()
+        ...
+
+in some environments, PDB may not work
+    use code interact() to start a python debugger with local context
+    exit by typing ^D

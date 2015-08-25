@@ -1,0 +1,101 @@
+Estimation
+===========
+
+Objetive:  Given some data from a distribution,
+infer the nature of the distribution
+
+Parametric vs. Non-Parametric
+-----------------------------
+
+A statistical model F is a set of distributions (or desnsities
+or regression functions).  A parametric model can be parameterized
+by a finite # of parameters.
+
+    Ex:
+        the set of all norm distr. is parametric
+        N(mu, sig**2)
+
+        the set of all finite sums of distributions from N(mu, sig**2), i.e. with
+        densities
+        f(x) = sum(from i=1 to k) f(sub mu, sig**2)(x)
+        is a non-parametric model
+
+Parametric Inference
+======================
+
+Pick a statistical model, then infer the parameters
+
+Types
+-----
+1.  Method of moments
+2.  Maximum likelihood estimation
+3.  Maximum a posteriori
+
+Method of Moments:
+E(sub x)(g(x)) = integral(-inf, +inf)(g(s)fx(s)ds)  - continuous
+               = sum()(g(s)fx(s))  - discrete
+E(x) = mean, E((x - avg(x))**2) = variance
+the kth momoent of x is defined as E(x**k)
+the kth sample moment of a sample is:
+m(sub k) = 1/n(sum(i=1, n)(x(sub i))**k)
+
+    Ex:
+    MOM - equate theoretical moments to sample moments and solve for parameters
+    toss a coin n times, q of them are heads.  Estimate p(heads)
+
+    1. Pick a model - Bernoulli
+        X ~ Bernoulli(p)
+    2. Write down or compute theoretical moments
+        1st: E(x) = sum(0, 1)s*f(s)
+                  = sum(o, 1)s * p**s * (1-p)**(1-s)
+    3. Compute the sample moment
+        m1 = 1/n(sum(i=1, n)(x sub i)) = q/n
+    4. Infer p(^) = q/n
+
+    Ex.
+    given a sample from a uniform symetric distribution, estimate theta
+        X ~ uniform(-theta, theta)
+
+Maximum Likelihood Estimation (MLE):
+let x1, x2, ... xn ~ F(theta)  # theta could be a vector; iid = independent, idetically distributed
+    probability of one data point = f(xi, theta)
+    probability of all data: multiply all individual  # likelihood
+
+    L(theta) = product(i=1, n)(f(xi, theta))  # x values fixed, theta variable
+
+    often, we use the log-likelihood
+
+    l(sub n)(theta) = log(L(sub n)(theta))
+                    = sum(i=1, n)(log(f(xi, theta)))
+
+    the MLE estimator for theta is:
+        theta(^) = theta(argmax theta) Ln(theta)
+
+    Ex.
+    let x1, x2, ... xn ~ Bernoulli(p). fin p
+    prob func: f(x, p) = p**x * (1-p)**(1-x)
+    likelihood: Ln(p) = prod(p**xi)(1-p)**(1-xi)
+                      = p**s(1-p)**(n-s) where s = sum(i=1, n)xi
+        ln(p) = slogp + (n-s)log(1-p)
+        dln(p)/dp = s/p + (n-s)(-1/(1-p)) ==>
+            dln/dp = 0 # max ==> p = s/n
+
+Maximum a Posteriori
+MAP extends MLE to incorporate prior knowledge of theta
+Let x represent all the data:
+    likelihood = f(x | theta)  # theta is explicitly given
+
+    what we reall want is:
+        what is theta, given x
+    use Bayes's rule:
+        f(theta | x) = f(x | theta)g(theta) / integral(for all theta)(f(s | theta)g(theta)ds)
+    most importantly:
+        f(theta | x) directly proportional to f(x | theta)g(theta)
+        posterior                             likelihood    prior
+
+        theta(^) = theta(argmax theta)f(x | theta)g(theta)
+
+        Ex:
+            coin flips
+            Ln(p) = p**s(1-p)**(n-s)
+            g(p) = 0.5 given a fair coin

@@ -1,0 +1,82 @@
+'''Extra credit 1'''
+
+WITH user_campaign_counts AS (
+    SELECT
+        users.campaign_id,
+        users.userid,
+        COUNT(*) AS cnt
+    FROM events
+    JOIN users
+    ON
+        events.userid = users.userid AAND
+        events.event = 'bought'
+    GROUP BY users.campaign_id, users.userid)
+
+SELECT u.campaign_id, u.userid, u.cnt
+FROM user_campaign_counts u
+JOIN (SELECT campaign_id, MAX(cnt) AS cnt
+      FROM user_campaign_counts
+      GROUP BY campaign_id) m
+ON
+    u.campaign_id = m.campaign_id AND
+    u.cnt = m.cnt
+
+'''For each day, get the total number of lusers who have registered as of that day.''' # cumulative sum
+
+WITH date_counts AS (
+SELECT dt, COUNT(*) AS cnt
+FROM users
+GROUP BY dt
+ORDER BY dt)
+
+SELECT a.dt, SUM(b.cnt)
+FROM date_counts a
+JOIN date_counts b
+ON
+    b.dt <= a.dt
+GROUP BY a.dt
+ORDER By a.dt;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/////////////////////////////////////////////////////////////////////////////////////
+
+# LEFT OUTER JOIN:
+SELECT visits.dt, COUNT(*)
+
+FROM visits
+LEFT OUTER JOIN events
+ON
+    visits.userid = events.userid AND
+    visits.dt = events.dt
+WHERE events.userid IS NULL
+GROUP BY visits.dt;
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+///////////////////////////////////////////////////////////////////////////////////////
+
+import psycopg2
+from datetime import datetime
+
+conn = psycopg2.connect(dbname ='socialmedia',
+                        user = 'postgres',
+                        host = '/tmp')
+
+c = conn.cursor()
+
+c.execute(
+    '''CREATE TABLE logins_{0} AS
+    WITH tmp AS (
+        SELECT userid, COUNT(*) AS cnt
+        FROM logins
+        WHERE logins.tmstmp > DATE '2014-08-14' - 7
+        GROUP BY userid
+    SELECT registrations.userid, COALESCE(tmp.cnt, 0)
+    FROM registrations
+    LEFT OUTER JOIN tmp
+    ON registrations.userid=tmp.userid;
+        '''.format(datetime.today().strftime('%s')))
+
+conn.commit()
+conn.close()
