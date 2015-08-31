@@ -1,6 +1,6 @@
 ###############################################
 fish prompt
-set in /.config/fishfunctions/fish_prompt.fish
+set in /.config/fish/functions/fish_prompt.fish
 ################################################
 
 set fish_greeting
@@ -55,12 +55,22 @@ function fish_prompt
 end
 
 ############################################
-fish config
+set fish config:
+atom ~/.config/fish/config.fish
 ############################################
 # Atom text
-set -gx PATH $PATH ~/home/anaconda/bin
-set -gx PATH $PATH ~/Applications/Postgres.app/Contents/Versions/9.4/bin
-set -gx PATH $PATH ~/home/jon/anaconda/pkgs/psycopg2-2.6-py27_1/lib/python2.7/site-packages/psycopg2
+set -gx PATH ~/etc/postgresql $PATH
+set -gx PATH ~/anaconda/pkgs $PATH
+set -gx PATH ~/anaconda/bin $PATH
 set -gx EDITOR 'atom -w'
 set -x PERL5LIB /home/iaco/workspace/perl:/home/iaco/devtools
-set -gx PATH $PATH ~/anaconda/bin
+
+###########################################
+reset PATH
+###########################################
+
+set -g -x PATH
+
+###########################################
+
+###########################################
